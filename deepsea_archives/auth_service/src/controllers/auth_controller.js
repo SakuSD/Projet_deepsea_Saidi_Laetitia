@@ -47,15 +47,20 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
+      console.log(`[LOGIN][FAIL] Missing fields - IP: ${req.ip} - Time: ${new Date().toISOString()}`);
       return res.status(400).json({ error: "Missing fields" });
     }
 
     const user = await prisma.user.findUnique({ where: { email } });
 
-    if (!user) return res.status(404).json({ error: "User not found" });
+    if (!user) {
+      console.log(`[LOGIN][FAIL] User not found for email=${email} - IP: ${req.ip} - Time: ${new Date().toISOString()}`);
+      return res.status(404).json({ error: "User not found" });
+    }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
+      console.log(`[LOGIN][FAIL] Invalid password for email=${email} - IP: ${req.ip} - Time: ${new Date().toISOString()}`);
       return res.status(401).json({ error: "Invalid password" });
     }
 
@@ -66,6 +71,8 @@ exports.login = async (req, res) => {
     );
 
     const { password: _, ...safeUser } = user;
+
+    console.log(`[LOGIN][SUCCESS] id=${user.id} email=${user.email} role=${user.role} - IP: ${req.ip} - Time: ${new Date().toISOString()}`);
 
     res.status(200).json({ user: safeUser, token });
 

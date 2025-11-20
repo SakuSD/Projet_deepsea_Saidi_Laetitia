@@ -1,21 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/auth_controller");
-const authMiddleware = require("../middlewares/authMiddleware");  // Importer le middleware
+const { authMiddleware, requireAdmin } = require("../middlewares/authMiddleware");
 
-// Route d'inscription
+// Register / Login
 router.post("/register", authController.register);
-
-// Route de login
 router.post("/login", authController.login);
 
-// Route protégée pour récupérer l'utilisateur connecté
-router.get("/me", authMiddleware, authController.getMe);  // Ajouter le middleware pour vérifier le token
+// USER CONNECTÉ (token obligatoire)
+router.get("/me", authMiddleware, authController.getMe);
 
-// Récupérer tous les utilisateurs
-router.get("/users", authController.getAllUsers);
+// ADMIN
+router.get("/admin/users", authMiddleware, requireAdmin, authController.getAllUsers);
 
-// Récupérer un utilisateur par son ID
+router.patch("/users/:id/role", authMiddleware, requireAdmin, authController.updateUserRole);
+
+router.get("/users", authMiddleware, requireAdmin, authController.getAllUsers);
+
+// Public : get user by ID
 router.get("/users/:id", authController.getUserById);
 
 module.exports = router;
