@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Observation-service is running!");
-});
+// require filenames corrigés (matchent species_routes.js et observation_routes.js)
+const speciesRoutes = require("./routes/species_routes");
+const observationRoutes = require("./routes/observation_routes");
 
-app.listen(3002, () => {
-  console.log("Observation service running on port 3002");
-});
+app.use("/species", speciesRoutes);
+app.use("/observations", observationRoutes);
+
+app.listen(3002, () => console.log("Observation service running on 3002"));
