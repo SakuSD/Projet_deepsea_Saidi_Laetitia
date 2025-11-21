@@ -15,10 +15,11 @@ datasource db {
 }
 
 model Species {
-  id        Int      @id @default(autoincrement())
-  authorId  Int
-  name      String   @unique
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  authorId    Int
+  name        String   @unique
+  createdAt   DateTime @default(now())
+  rarityScore Float    @default(1.0)
 
   observations Observation[]
 }
@@ -34,6 +35,13 @@ model Observation {
   createdAt   DateTime  @default(now())
 
   species Species @relation(fields: [speciesId], references: [id])
+}
+
+model Reputation {
+  userId     Int   @id
+  reputation Int   @default(0)
+  isExpert   Boolean @default(false)
+  updatedAt  DateTime @updatedAt
 }
 
 enum Status {

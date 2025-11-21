@@ -23,6 +23,11 @@ export type Species = $Result.DefaultSelection<Prisma.$SpeciesPayload>
  * 
  */
 export type Observation = $Result.DefaultSelection<Prisma.$ObservationPayload>
+/**
+ * Model Reputation
+ * 
+ */
+export type Reputation = $Result.DefaultSelection<Prisma.$ReputationPayload>
 
 /**
  * Enums
@@ -186,6 +191,16 @@ export class PrismaClient<
     * ```
     */
   get observation(): Prisma.ObservationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.reputation`: Exposes CRUD operations for the **Reputation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reputations
+    * const reputations = await prisma.reputation.findMany()
+    * ```
+    */
+  get reputation(): Prisma.ReputationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -627,7 +642,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Species: 'Species',
-    Observation: 'Observation'
+    Observation: 'Observation',
+    Reputation: 'Reputation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -646,7 +662,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "species" | "observation"
+      modelProps: "species" | "observation" | "reputation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -798,6 +814,80 @@ export namespace Prisma {
           }
         }
       }
+      Reputation: {
+        payload: Prisma.$ReputationPayload<ExtArgs>
+        fields: Prisma.ReputationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReputationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReputationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload>
+          }
+          findFirst: {
+            args: Prisma.ReputationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReputationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload>
+          }
+          findMany: {
+            args: Prisma.ReputationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload>[]
+          }
+          create: {
+            args: Prisma.ReputationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload>
+          }
+          createMany: {
+            args: Prisma.ReputationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ReputationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload>[]
+          }
+          delete: {
+            args: Prisma.ReputationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload>
+          }
+          update: {
+            args: Prisma.ReputationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReputationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReputationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ReputationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload>[]
+          }
+          upsert: {
+            args: Prisma.ReputationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReputationPayload>
+          }
+          aggregate: {
+            args: Prisma.ReputationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReputation>
+          }
+          groupBy: {
+            args: Prisma.ReputationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReputationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ReputationCountArgs<ExtArgs>
+            result: $Utils.Optional<ReputationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -884,6 +974,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     species?: SpeciesOmit
     observation?: ObservationOmit
+    reputation?: ReputationOmit
   }
 
   /* Types for Logging */
@@ -1023,11 +1114,13 @@ export namespace Prisma {
   export type SpeciesAvgAggregateOutputType = {
     id: number | null
     authorId: number | null
+    rarityScore: number | null
   }
 
   export type SpeciesSumAggregateOutputType = {
     id: number | null
     authorId: number | null
+    rarityScore: number | null
   }
 
   export type SpeciesMinAggregateOutputType = {
@@ -1035,6 +1128,7 @@ export namespace Prisma {
     authorId: number | null
     name: string | null
     createdAt: Date | null
+    rarityScore: number | null
   }
 
   export type SpeciesMaxAggregateOutputType = {
@@ -1042,6 +1136,7 @@ export namespace Prisma {
     authorId: number | null
     name: string | null
     createdAt: Date | null
+    rarityScore: number | null
   }
 
   export type SpeciesCountAggregateOutputType = {
@@ -1049,6 +1144,7 @@ export namespace Prisma {
     authorId: number
     name: number
     createdAt: number
+    rarityScore: number
     _all: number
   }
 
@@ -1056,11 +1152,13 @@ export namespace Prisma {
   export type SpeciesAvgAggregateInputType = {
     id?: true
     authorId?: true
+    rarityScore?: true
   }
 
   export type SpeciesSumAggregateInputType = {
     id?: true
     authorId?: true
+    rarityScore?: true
   }
 
   export type SpeciesMinAggregateInputType = {
@@ -1068,6 +1166,7 @@ export namespace Prisma {
     authorId?: true
     name?: true
     createdAt?: true
+    rarityScore?: true
   }
 
   export type SpeciesMaxAggregateInputType = {
@@ -1075,6 +1174,7 @@ export namespace Prisma {
     authorId?: true
     name?: true
     createdAt?: true
+    rarityScore?: true
   }
 
   export type SpeciesCountAggregateInputType = {
@@ -1082,6 +1182,7 @@ export namespace Prisma {
     authorId?: true
     name?: true
     createdAt?: true
+    rarityScore?: true
     _all?: true
   }
 
@@ -1176,6 +1277,7 @@ export namespace Prisma {
     authorId: number
     name: string
     createdAt: Date
+    rarityScore: number
     _count: SpeciesCountAggregateOutputType | null
     _avg: SpeciesAvgAggregateOutputType | null
     _sum: SpeciesSumAggregateOutputType | null
@@ -1202,6 +1304,7 @@ export namespace Prisma {
     authorId?: boolean
     name?: boolean
     createdAt?: boolean
+    rarityScore?: boolean
     observations?: boolean | Species$observationsArgs<ExtArgs>
     _count?: boolean | SpeciesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["species"]>
@@ -1211,6 +1314,7 @@ export namespace Prisma {
     authorId?: boolean
     name?: boolean
     createdAt?: boolean
+    rarityScore?: boolean
   }, ExtArgs["result"]["species"]>
 
   export type SpeciesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1218,6 +1322,7 @@ export namespace Prisma {
     authorId?: boolean
     name?: boolean
     createdAt?: boolean
+    rarityScore?: boolean
   }, ExtArgs["result"]["species"]>
 
   export type SpeciesSelectScalar = {
@@ -1225,9 +1330,10 @@ export namespace Prisma {
     authorId?: boolean
     name?: boolean
     createdAt?: boolean
+    rarityScore?: boolean
   }
 
-  export type SpeciesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "authorId" | "name" | "createdAt", ExtArgs["result"]["species"]>
+  export type SpeciesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "authorId" | "name" | "createdAt" | "rarityScore", ExtArgs["result"]["species"]>
   export type SpeciesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     observations?: boolean | Species$observationsArgs<ExtArgs>
     _count?: boolean | SpeciesCountOutputTypeDefaultArgs<ExtArgs>
@@ -1245,6 +1351,7 @@ export namespace Prisma {
       authorId: number
       name: string
       createdAt: Date
+      rarityScore: number
     }, ExtArgs["result"]["species"]>
     composites: {}
   }
@@ -1673,6 +1780,7 @@ export namespace Prisma {
     readonly authorId: FieldRef<"Species", 'Int'>
     readonly name: FieldRef<"Species", 'String'>
     readonly createdAt: FieldRef<"Species", 'DateTime'>
+    readonly rarityScore: FieldRef<"Species", 'Float'>
   }
     
 
@@ -3243,6 +3351,1024 @@ export namespace Prisma {
 
 
   /**
+   * Model Reputation
+   */
+
+  export type AggregateReputation = {
+    _count: ReputationCountAggregateOutputType | null
+    _avg: ReputationAvgAggregateOutputType | null
+    _sum: ReputationSumAggregateOutputType | null
+    _min: ReputationMinAggregateOutputType | null
+    _max: ReputationMaxAggregateOutputType | null
+  }
+
+  export type ReputationAvgAggregateOutputType = {
+    userId: number | null
+    reputation: number | null
+  }
+
+  export type ReputationSumAggregateOutputType = {
+    userId: number | null
+    reputation: number | null
+  }
+
+  export type ReputationMinAggregateOutputType = {
+    userId: number | null
+    reputation: number | null
+    isExpert: boolean | null
+    updatedAt: Date | null
+  }
+
+  export type ReputationMaxAggregateOutputType = {
+    userId: number | null
+    reputation: number | null
+    isExpert: boolean | null
+    updatedAt: Date | null
+  }
+
+  export type ReputationCountAggregateOutputType = {
+    userId: number
+    reputation: number
+    isExpert: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ReputationAvgAggregateInputType = {
+    userId?: true
+    reputation?: true
+  }
+
+  export type ReputationSumAggregateInputType = {
+    userId?: true
+    reputation?: true
+  }
+
+  export type ReputationMinAggregateInputType = {
+    userId?: true
+    reputation?: true
+    isExpert?: true
+    updatedAt?: true
+  }
+
+  export type ReputationMaxAggregateInputType = {
+    userId?: true
+    reputation?: true
+    isExpert?: true
+    updatedAt?: true
+  }
+
+  export type ReputationCountAggregateInputType = {
+    userId?: true
+    reputation?: true
+    isExpert?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ReputationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Reputation to aggregate.
+     */
+    where?: ReputationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reputations to fetch.
+     */
+    orderBy?: ReputationOrderByWithRelationInput | ReputationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReputationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reputations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reputations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Reputations
+    **/
+    _count?: true | ReputationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReputationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReputationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReputationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReputationMaxAggregateInputType
+  }
+
+  export type GetReputationAggregateType<T extends ReputationAggregateArgs> = {
+        [P in keyof T & keyof AggregateReputation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReputation[P]>
+      : GetScalarType<T[P], AggregateReputation[P]>
+  }
+
+
+
+
+  export type ReputationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReputationWhereInput
+    orderBy?: ReputationOrderByWithAggregationInput | ReputationOrderByWithAggregationInput[]
+    by: ReputationScalarFieldEnum[] | ReputationScalarFieldEnum
+    having?: ReputationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReputationCountAggregateInputType | true
+    _avg?: ReputationAvgAggregateInputType
+    _sum?: ReputationSumAggregateInputType
+    _min?: ReputationMinAggregateInputType
+    _max?: ReputationMaxAggregateInputType
+  }
+
+  export type ReputationGroupByOutputType = {
+    userId: number
+    reputation: number
+    isExpert: boolean
+    updatedAt: Date
+    _count: ReputationCountAggregateOutputType | null
+    _avg: ReputationAvgAggregateOutputType | null
+    _sum: ReputationSumAggregateOutputType | null
+    _min: ReputationMinAggregateOutputType | null
+    _max: ReputationMaxAggregateOutputType | null
+  }
+
+  type GetReputationGroupByPayload<T extends ReputationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReputationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReputationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReputationGroupByOutputType[P]>
+            : GetScalarType<T[P], ReputationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReputationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    reputation?: boolean
+    isExpert?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["reputation"]>
+
+  export type ReputationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    reputation?: boolean
+    isExpert?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["reputation"]>
+
+  export type ReputationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    reputation?: boolean
+    isExpert?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["reputation"]>
+
+  export type ReputationSelectScalar = {
+    userId?: boolean
+    reputation?: boolean
+    isExpert?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ReputationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "reputation" | "isExpert" | "updatedAt", ExtArgs["result"]["reputation"]>
+
+  export type $ReputationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Reputation"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      userId: number
+      reputation: number
+      isExpert: boolean
+      updatedAt: Date
+    }, ExtArgs["result"]["reputation"]>
+    composites: {}
+  }
+
+  type ReputationGetPayload<S extends boolean | null | undefined | ReputationDefaultArgs> = $Result.GetResult<Prisma.$ReputationPayload, S>
+
+  type ReputationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ReputationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReputationCountAggregateInputType | true
+    }
+
+  export interface ReputationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Reputation'], meta: { name: 'Reputation' } }
+    /**
+     * Find zero or one Reputation that matches the filter.
+     * @param {ReputationFindUniqueArgs} args - Arguments to find a Reputation
+     * @example
+     * // Get one Reputation
+     * const reputation = await prisma.reputation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReputationFindUniqueArgs>(args: SelectSubset<T, ReputationFindUniqueArgs<ExtArgs>>): Prisma__ReputationClient<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Reputation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ReputationFindUniqueOrThrowArgs} args - Arguments to find a Reputation
+     * @example
+     * // Get one Reputation
+     * const reputation = await prisma.reputation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReputationFindUniqueOrThrowArgs>(args: SelectSubset<T, ReputationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReputationClient<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reputation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReputationFindFirstArgs} args - Arguments to find a Reputation
+     * @example
+     * // Get one Reputation
+     * const reputation = await prisma.reputation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReputationFindFirstArgs>(args?: SelectSubset<T, ReputationFindFirstArgs<ExtArgs>>): Prisma__ReputationClient<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reputation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReputationFindFirstOrThrowArgs} args - Arguments to find a Reputation
+     * @example
+     * // Get one Reputation
+     * const reputation = await prisma.reputation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReputationFindFirstOrThrowArgs>(args?: SelectSubset<T, ReputationFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReputationClient<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reputations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReputationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reputations
+     * const reputations = await prisma.reputation.findMany()
+     * 
+     * // Get first 10 Reputations
+     * const reputations = await prisma.reputation.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const reputationWithUserIdOnly = await prisma.reputation.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends ReputationFindManyArgs>(args?: SelectSubset<T, ReputationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Reputation.
+     * @param {ReputationCreateArgs} args - Arguments to create a Reputation.
+     * @example
+     * // Create one Reputation
+     * const Reputation = await prisma.reputation.create({
+     *   data: {
+     *     // ... data to create a Reputation
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReputationCreateArgs>(args: SelectSubset<T, ReputationCreateArgs<ExtArgs>>): Prisma__ReputationClient<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Reputations.
+     * @param {ReputationCreateManyArgs} args - Arguments to create many Reputations.
+     * @example
+     * // Create many Reputations
+     * const reputation = await prisma.reputation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReputationCreateManyArgs>(args?: SelectSubset<T, ReputationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Reputations and returns the data saved in the database.
+     * @param {ReputationCreateManyAndReturnArgs} args - Arguments to create many Reputations.
+     * @example
+     * // Create many Reputations
+     * const reputation = await prisma.reputation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Reputations and only return the `userId`
+     * const reputationWithUserIdOnly = await prisma.reputation.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ReputationCreateManyAndReturnArgs>(args?: SelectSubset<T, ReputationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Reputation.
+     * @param {ReputationDeleteArgs} args - Arguments to delete one Reputation.
+     * @example
+     * // Delete one Reputation
+     * const Reputation = await prisma.reputation.delete({
+     *   where: {
+     *     // ... filter to delete one Reputation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReputationDeleteArgs>(args: SelectSubset<T, ReputationDeleteArgs<ExtArgs>>): Prisma__ReputationClient<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Reputation.
+     * @param {ReputationUpdateArgs} args - Arguments to update one Reputation.
+     * @example
+     * // Update one Reputation
+     * const reputation = await prisma.reputation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReputationUpdateArgs>(args: SelectSubset<T, ReputationUpdateArgs<ExtArgs>>): Prisma__ReputationClient<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Reputations.
+     * @param {ReputationDeleteManyArgs} args - Arguments to filter Reputations to delete.
+     * @example
+     * // Delete a few Reputations
+     * const { count } = await prisma.reputation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReputationDeleteManyArgs>(args?: SelectSubset<T, ReputationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reputations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReputationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reputations
+     * const reputation = await prisma.reputation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReputationUpdateManyArgs>(args: SelectSubset<T, ReputationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reputations and returns the data updated in the database.
+     * @param {ReputationUpdateManyAndReturnArgs} args - Arguments to update many Reputations.
+     * @example
+     * // Update many Reputations
+     * const reputation = await prisma.reputation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Reputations and only return the `userId`
+     * const reputationWithUserIdOnly = await prisma.reputation.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ReputationUpdateManyAndReturnArgs>(args: SelectSubset<T, ReputationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Reputation.
+     * @param {ReputationUpsertArgs} args - Arguments to update or create a Reputation.
+     * @example
+     * // Update or create a Reputation
+     * const reputation = await prisma.reputation.upsert({
+     *   create: {
+     *     // ... data to create a Reputation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Reputation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReputationUpsertArgs>(args: SelectSubset<T, ReputationUpsertArgs<ExtArgs>>): Prisma__ReputationClient<$Result.GetResult<Prisma.$ReputationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Reputations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReputationCountArgs} args - Arguments to filter Reputations to count.
+     * @example
+     * // Count the number of Reputations
+     * const count = await prisma.reputation.count({
+     *   where: {
+     *     // ... the filter for the Reputations we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReputationCountArgs>(
+      args?: Subset<T, ReputationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReputationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Reputation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReputationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReputationAggregateArgs>(args: Subset<T, ReputationAggregateArgs>): Prisma.PrismaPromise<GetReputationAggregateType<T>>
+
+    /**
+     * Group by Reputation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReputationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReputationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReputationGroupByArgs['orderBy'] }
+        : { orderBy?: ReputationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReputationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReputationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Reputation model
+   */
+  readonly fields: ReputationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Reputation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReputationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Reputation model
+   */
+  interface ReputationFieldRefs {
+    readonly userId: FieldRef<"Reputation", 'Int'>
+    readonly reputation: FieldRef<"Reputation", 'Int'>
+    readonly isExpert: FieldRef<"Reputation", 'Boolean'>
+    readonly updatedAt: FieldRef<"Reputation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Reputation findUnique
+   */
+  export type ReputationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * Filter, which Reputation to fetch.
+     */
+    where: ReputationWhereUniqueInput
+  }
+
+  /**
+   * Reputation findUniqueOrThrow
+   */
+  export type ReputationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * Filter, which Reputation to fetch.
+     */
+    where: ReputationWhereUniqueInput
+  }
+
+  /**
+   * Reputation findFirst
+   */
+  export type ReputationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * Filter, which Reputation to fetch.
+     */
+    where?: ReputationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reputations to fetch.
+     */
+    orderBy?: ReputationOrderByWithRelationInput | ReputationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reputations.
+     */
+    cursor?: ReputationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reputations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reputations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reputations.
+     */
+    distinct?: ReputationScalarFieldEnum | ReputationScalarFieldEnum[]
+  }
+
+  /**
+   * Reputation findFirstOrThrow
+   */
+  export type ReputationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * Filter, which Reputation to fetch.
+     */
+    where?: ReputationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reputations to fetch.
+     */
+    orderBy?: ReputationOrderByWithRelationInput | ReputationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reputations.
+     */
+    cursor?: ReputationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reputations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reputations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reputations.
+     */
+    distinct?: ReputationScalarFieldEnum | ReputationScalarFieldEnum[]
+  }
+
+  /**
+   * Reputation findMany
+   */
+  export type ReputationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * Filter, which Reputations to fetch.
+     */
+    where?: ReputationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reputations to fetch.
+     */
+    orderBy?: ReputationOrderByWithRelationInput | ReputationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Reputations.
+     */
+    cursor?: ReputationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reputations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reputations.
+     */
+    skip?: number
+    distinct?: ReputationScalarFieldEnum | ReputationScalarFieldEnum[]
+  }
+
+  /**
+   * Reputation create
+   */
+  export type ReputationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Reputation.
+     */
+    data: XOR<ReputationCreateInput, ReputationUncheckedCreateInput>
+  }
+
+  /**
+   * Reputation createMany
+   */
+  export type ReputationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Reputations.
+     */
+    data: ReputationCreateManyInput | ReputationCreateManyInput[]
+  }
+
+  /**
+   * Reputation createManyAndReturn
+   */
+  export type ReputationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Reputations.
+     */
+    data: ReputationCreateManyInput | ReputationCreateManyInput[]
+  }
+
+  /**
+   * Reputation update
+   */
+  export type ReputationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Reputation.
+     */
+    data: XOR<ReputationUpdateInput, ReputationUncheckedUpdateInput>
+    /**
+     * Choose, which Reputation to update.
+     */
+    where: ReputationWhereUniqueInput
+  }
+
+  /**
+   * Reputation updateMany
+   */
+  export type ReputationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Reputations.
+     */
+    data: XOR<ReputationUpdateManyMutationInput, ReputationUncheckedUpdateManyInput>
+    /**
+     * Filter which Reputations to update
+     */
+    where?: ReputationWhereInput
+    /**
+     * Limit how many Reputations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Reputation updateManyAndReturn
+   */
+  export type ReputationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * The data used to update Reputations.
+     */
+    data: XOR<ReputationUpdateManyMutationInput, ReputationUncheckedUpdateManyInput>
+    /**
+     * Filter which Reputations to update
+     */
+    where?: ReputationWhereInput
+    /**
+     * Limit how many Reputations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Reputation upsert
+   */
+  export type ReputationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Reputation to update in case it exists.
+     */
+    where: ReputationWhereUniqueInput
+    /**
+     * In case the Reputation found by the `where` argument doesn't exist, create a new Reputation with this data.
+     */
+    create: XOR<ReputationCreateInput, ReputationUncheckedCreateInput>
+    /**
+     * In case the Reputation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReputationUpdateInput, ReputationUncheckedUpdateInput>
+  }
+
+  /**
+   * Reputation delete
+   */
+  export type ReputationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+    /**
+     * Filter which Reputation to delete.
+     */
+    where: ReputationWhereUniqueInput
+  }
+
+  /**
+   * Reputation deleteMany
+   */
+  export type ReputationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Reputations to delete
+     */
+    where?: ReputationWhereInput
+    /**
+     * Limit how many Reputations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Reputation without action
+   */
+  export type ReputationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reputation
+     */
+    select?: ReputationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reputation
+     */
+    omit?: ReputationOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3257,7 +4383,8 @@ export namespace Prisma {
     id: 'id',
     authorId: 'authorId',
     name: 'name',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    rarityScore: 'rarityScore'
   };
 
   export type SpeciesScalarFieldEnum = (typeof SpeciesScalarFieldEnum)[keyof typeof SpeciesScalarFieldEnum]
@@ -3275,6 +4402,16 @@ export namespace Prisma {
   };
 
   export type ObservationScalarFieldEnum = (typeof ObservationScalarFieldEnum)[keyof typeof ObservationScalarFieldEnum]
+
+
+  export const ReputationScalarFieldEnum: {
+    userId: 'userId',
+    reputation: 'reputation',
+    isExpert: 'isExpert',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ReputationScalarFieldEnum = (typeof ReputationScalarFieldEnum)[keyof typeof ReputationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3320,6 +4457,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
    * Reference to a field of type 'Status'
    */
   export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
@@ -3327,9 +4471,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'Boolean'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -3344,6 +4488,7 @@ export namespace Prisma {
     authorId?: IntFilter<"Species"> | number
     name?: StringFilter<"Species"> | string
     createdAt?: DateTimeFilter<"Species"> | Date | string
+    rarityScore?: FloatFilter<"Species"> | number
     observations?: ObservationListRelationFilter
   }
 
@@ -3352,6 +4497,7 @@ export namespace Prisma {
     authorId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    rarityScore?: SortOrder
     observations?: ObservationOrderByRelationAggregateInput
   }
 
@@ -3363,6 +4509,7 @@ export namespace Prisma {
     NOT?: SpeciesWhereInput | SpeciesWhereInput[]
     authorId?: IntFilter<"Species"> | number
     createdAt?: DateTimeFilter<"Species"> | Date | string
+    rarityScore?: FloatFilter<"Species"> | number
     observations?: ObservationListRelationFilter
   }, "id" | "name">
 
@@ -3371,6 +4518,7 @@ export namespace Prisma {
     authorId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    rarityScore?: SortOrder
     _count?: SpeciesCountOrderByAggregateInput
     _avg?: SpeciesAvgOrderByAggregateInput
     _max?: SpeciesMaxOrderByAggregateInput
@@ -3386,6 +4534,7 @@ export namespace Prisma {
     authorId?: IntWithAggregatesFilter<"Species"> | number
     name?: StringWithAggregatesFilter<"Species"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Species"> | Date | string
+    rarityScore?: FloatWithAggregatesFilter<"Species"> | number
   }
 
   export type ObservationWhereInput = {
@@ -3460,10 +4609,60 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Observation"> | Date | string
   }
 
+  export type ReputationWhereInput = {
+    AND?: ReputationWhereInput | ReputationWhereInput[]
+    OR?: ReputationWhereInput[]
+    NOT?: ReputationWhereInput | ReputationWhereInput[]
+    userId?: IntFilter<"Reputation"> | number
+    reputation?: IntFilter<"Reputation"> | number
+    isExpert?: BoolFilter<"Reputation"> | boolean
+    updatedAt?: DateTimeFilter<"Reputation"> | Date | string
+  }
+
+  export type ReputationOrderByWithRelationInput = {
+    userId?: SortOrder
+    reputation?: SortOrder
+    isExpert?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReputationWhereUniqueInput = Prisma.AtLeast<{
+    userId?: number
+    AND?: ReputationWhereInput | ReputationWhereInput[]
+    OR?: ReputationWhereInput[]
+    NOT?: ReputationWhereInput | ReputationWhereInput[]
+    reputation?: IntFilter<"Reputation"> | number
+    isExpert?: BoolFilter<"Reputation"> | boolean
+    updatedAt?: DateTimeFilter<"Reputation"> | Date | string
+  }, "userId">
+
+  export type ReputationOrderByWithAggregationInput = {
+    userId?: SortOrder
+    reputation?: SortOrder
+    isExpert?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ReputationCountOrderByAggregateInput
+    _avg?: ReputationAvgOrderByAggregateInput
+    _max?: ReputationMaxOrderByAggregateInput
+    _min?: ReputationMinOrderByAggregateInput
+    _sum?: ReputationSumOrderByAggregateInput
+  }
+
+  export type ReputationScalarWhereWithAggregatesInput = {
+    AND?: ReputationScalarWhereWithAggregatesInput | ReputationScalarWhereWithAggregatesInput[]
+    OR?: ReputationScalarWhereWithAggregatesInput[]
+    NOT?: ReputationScalarWhereWithAggregatesInput | ReputationScalarWhereWithAggregatesInput[]
+    userId?: IntWithAggregatesFilter<"Reputation"> | number
+    reputation?: IntWithAggregatesFilter<"Reputation"> | number
+    isExpert?: BoolWithAggregatesFilter<"Reputation"> | boolean
+    updatedAt?: DateTimeWithAggregatesFilter<"Reputation"> | Date | string
+  }
+
   export type SpeciesCreateInput = {
     authorId: number
     name: string
     createdAt?: Date | string
+    rarityScore?: number
     observations?: ObservationCreateNestedManyWithoutSpeciesInput
   }
 
@@ -3472,6 +4671,7 @@ export namespace Prisma {
     authorId: number
     name: string
     createdAt?: Date | string
+    rarityScore?: number
     observations?: ObservationUncheckedCreateNestedManyWithoutSpeciesInput
   }
 
@@ -3479,6 +4679,7 @@ export namespace Prisma {
     authorId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rarityScore?: FloatFieldUpdateOperationsInput | number
     observations?: ObservationUpdateManyWithoutSpeciesNestedInput
   }
 
@@ -3487,6 +4688,7 @@ export namespace Prisma {
     authorId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rarityScore?: FloatFieldUpdateOperationsInput | number
     observations?: ObservationUncheckedUpdateManyWithoutSpeciesNestedInput
   }
 
@@ -3495,12 +4697,14 @@ export namespace Prisma {
     authorId: number
     name: string
     createdAt?: Date | string
+    rarityScore?: number
   }
 
   export type SpeciesUpdateManyMutationInput = {
     authorId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rarityScore?: FloatFieldUpdateOperationsInput | number
   }
 
   export type SpeciesUncheckedUpdateManyInput = {
@@ -3508,6 +4712,7 @@ export namespace Prisma {
     authorId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rarityScore?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ObservationCreateInput = {
@@ -3583,6 +4788,55 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ReputationCreateInput = {
+    userId: number
+    reputation?: number
+    isExpert?: boolean
+    updatedAt?: Date | string
+  }
+
+  export type ReputationUncheckedCreateInput = {
+    userId: number
+    reputation?: number
+    isExpert?: boolean
+    updatedAt?: Date | string
+  }
+
+  export type ReputationUpdateInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    reputation?: IntFieldUpdateOperationsInput | number
+    isExpert?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReputationUncheckedUpdateInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    reputation?: IntFieldUpdateOperationsInput | number
+    isExpert?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReputationCreateManyInput = {
+    userId: number
+    reputation?: number
+    isExpert?: boolean
+    updatedAt?: Date | string
+  }
+
+  export type ReputationUpdateManyMutationInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    reputation?: IntFieldUpdateOperationsInput | number
+    isExpert?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReputationUncheckedUpdateManyInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    reputation?: IntFieldUpdateOperationsInput | number
+    isExpert?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -3619,6 +4873,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type ObservationListRelationFilter = {
     every?: ObservationWhereInput
     some?: ObservationWhereInput
@@ -3634,11 +4899,13 @@ export namespace Prisma {
     authorId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    rarityScore?: SortOrder
   }
 
   export type SpeciesAvgOrderByAggregateInput = {
     id?: SortOrder
     authorId?: SortOrder
+    rarityScore?: SortOrder
   }
 
   export type SpeciesMaxOrderByAggregateInput = {
@@ -3646,6 +4913,7 @@ export namespace Prisma {
     authorId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    rarityScore?: SortOrder
   }
 
   export type SpeciesMinOrderByAggregateInput = {
@@ -3653,11 +4921,13 @@ export namespace Prisma {
     authorId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    rarityScore?: SortOrder
   }
 
   export type SpeciesSumOrderByAggregateInput = {
     id?: SortOrder
     authorId?: SortOrder
+    rarityScore?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -3705,6 +4975,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnumStatusFilter<$PrismaModel = never> = {
@@ -3833,6 +5119,50 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type ReputationCountOrderByAggregateInput = {
+    userId?: SortOrder
+    reputation?: SortOrder
+    isExpert?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReputationAvgOrderByAggregateInput = {
+    userId?: SortOrder
+    reputation?: SortOrder
+  }
+
+  export type ReputationMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    reputation?: SortOrder
+    isExpert?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReputationMinOrderByAggregateInput = {
+    userId?: SortOrder
+    reputation?: SortOrder
+    isExpert?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReputationSumOrderByAggregateInput = {
+    userId?: SortOrder
+    reputation?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type ObservationCreateNestedManyWithoutSpeciesInput = {
     create?: XOR<ObservationCreateWithoutSpeciesInput, ObservationUncheckedCreateWithoutSpeciesInput> | ObservationCreateWithoutSpeciesInput[] | ObservationUncheckedCreateWithoutSpeciesInput[]
     connectOrCreate?: ObservationCreateOrConnectWithoutSpeciesInput | ObservationCreateOrConnectWithoutSpeciesInput[]
@@ -3861,6 +5191,14 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type ObservationUpdateManyWithoutSpeciesNestedInput = {
@@ -3921,6 +5259,10 @@ export namespace Prisma {
     update?: XOR<XOR<SpeciesUpdateToOneWithWhereWithoutObservationsInput, SpeciesUpdateWithoutObservationsInput>, SpeciesUncheckedUpdateWithoutObservationsInput>
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -3957,6 +5299,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -3971,17 +5324,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -4013,6 +5355,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumStatusFilter<$PrismaModel = never> = {
@@ -4095,6 +5453,19 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type ObservationCreateWithoutSpeciesInput = {
     authorId: number
     description: string
@@ -4157,6 +5528,7 @@ export namespace Prisma {
     authorId: number
     name: string
     createdAt?: Date | string
+    rarityScore?: number
   }
 
   export type SpeciesUncheckedCreateWithoutObservationsInput = {
@@ -4164,6 +5536,7 @@ export namespace Prisma {
     authorId: number
     name: string
     createdAt?: Date | string
+    rarityScore?: number
   }
 
   export type SpeciesCreateOrConnectWithoutObservationsInput = {
@@ -4186,6 +5559,7 @@ export namespace Prisma {
     authorId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rarityScore?: FloatFieldUpdateOperationsInput | number
   }
 
   export type SpeciesUncheckedUpdateWithoutObservationsInput = {
@@ -4193,6 +5567,7 @@ export namespace Prisma {
     authorId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rarityScore?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ObservationCreateManySpeciesInput = {

@@ -121,7 +121,8 @@ exports.Prisma.SpeciesScalarFieldEnum = {
   id: 'id',
   authorId: 'authorId',
   name: 'name',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  rarityScore: 'rarityScore'
 };
 
 exports.Prisma.ObservationScalarFieldEnum = {
@@ -133,6 +134,13 @@ exports.Prisma.ObservationScalarFieldEnum = {
   validatedBy: 'validatedBy',
   validatedAt: 'validatedAt',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.ReputationScalarFieldEnum = {
+  userId: 'userId',
+  reputation: 'reputation',
+  isExpert: 'isExpert',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -152,7 +160,8 @@ exports.Status = exports.$Enums.Status = {
 
 exports.Prisma.ModelName = {
   Species: 'Species',
-  Observation: 'Observation'
+  Observation: 'Observation',
+  Reputation: 'Reputation'
 };
 
 /**
