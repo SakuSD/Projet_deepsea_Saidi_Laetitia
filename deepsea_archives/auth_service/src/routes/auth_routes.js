@@ -13,7 +13,8 @@ router.get("/me", authMiddleware, authController.getMe);
 // ADMIN
 router.get("/admin/users", authMiddleware, requireAdmin, authController.getAllUsers);
 
-router.patch("/users/:id/role", authMiddleware, requireAdmin, authController.updateUserRole);
+router.patch("/admin/users/:id/role", authMiddleware, requireAdmin, authController.updateUserRole);
+
 
 router.get("/users", authMiddleware, requireAdmin, authController.getAllUsers);
 
